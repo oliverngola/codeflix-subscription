@@ -6,7 +6,7 @@ from src.application.create_user_account import CreateUserAccountUseCase, Create
 from src.application.exceptions import UserAlreadyExistsError
 from src.domain.user_account import Address
 from src.infra.auth_service import AuthService
-from src.infra.in_memory_user_account_repository import InMemoryUserAccountRepository
+from src.tests.infra.in_memory_user_account_repository import InMemoryUserAccountRepository
 
 account_input = CreateUserAccountInput(  # pytest.fixture
     name="John Doe",
