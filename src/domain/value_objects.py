@@ -1,6 +1,13 @@
 from decimal import Decimal
 from enum import StrEnum
-from pydantic import BaseModel
+
+from pydantic import BaseModel, Field
+
+
+class ValueObject(BaseModel):
+    model_config = {
+        "frozen": True,
+    }
 
 
 class Currency(StrEnum):
@@ -8,6 +15,6 @@ class Currency(StrEnum):
     USD = "USD"
 
 
-class MonetaryValue(BaseModel):
-    amount: Decimal
-    currency: Currency
+class MonetaryValue(ValueObject):
+    amount: Decimal = Field(gt=0)
+    currency: Currency = Currency.BRL
