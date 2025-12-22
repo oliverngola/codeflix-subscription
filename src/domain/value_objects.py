@@ -1,13 +1,11 @@
 from decimal import Decimal
 from enum import StrEnum
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 
 class ValueObject(BaseModel):
-    model_config = {
-        "frozen": True,
-    }
+    model_config = ConfigDict(frozen=True)
 
 
 class Currency(StrEnum):

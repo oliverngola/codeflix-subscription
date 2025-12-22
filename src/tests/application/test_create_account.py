@@ -5,8 +5,8 @@ import pytest
 from src.application.create_user_account import CreateUserAccountUseCase, CreateUserAccountInput
 from src.application.exceptions import UserAlreadyExistsError
 from src.domain.user_account import Address
-from src.infra.auth_service import AuthService
-from src.tests.infra.in_memory_user_account_repository import InMemoryUserAccountRepository
+from src.infra.auth import AuthService
+from src.tests.fixtures.infra.repositories import InMemoryUserAccountRepository
 
 account_input = CreateUserAccountInput(  # pytest.fixture
     name="John Doe",

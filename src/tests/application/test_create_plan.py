@@ -4,7 +4,7 @@ from src.application.create_plan import CreatePlanUseCase, CreatePlanInput
 from src.application.exceptions import DuplicatePlanError
 from src.domain.plan import Plan
 from src.domain.value_objects import MonetaryValue
-from src.tests.infra.in_memory_plan_repository import InMemoryPlanRepository
+from src.tests.fixtures.infra.repositories import InMemoryPlanRepository
 
 
 class TestCreatePlan:

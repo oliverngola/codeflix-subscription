@@ -13,7 +13,14 @@ from uuid import UUID
 from pydantic import BaseModel
 
 from src.application.exceptions import PlanNotFoundError, SubscriptionConflictError, UserNotFoundError
+from src.domain.repositories import (
+    PlanRepository, 
+    SubscriptionRepository, 
+    UserAccountRepository
+)
 from src.domain.subscription import Subscription
+from src.infra.notification import NotificationService
+from src.infra.payment import PaymentGateway
 
 
 class SubscribeToPlanInput(BaseModel):
@@ -29,11 +36,11 @@ class SubscribeToPlanOutput(BaseModel):
 class SubscribeToPlanUseCase:
     def __init__(
         self,
-        payment_gateway,
-        notification_service,
-        subscription_repository,
-        user_account_repository,
-        plan_repository,
+        payment_gateway: PaymentGateway,
+        notification_service: NotificationService,
+        subscription_repository: SubscriptionRepository,
+        user_account_repository: UserAccountRepository,
+        plan_repository: PlanRepository,
     ):
         self.payment_gateway = payment_gateway
         self.notification_service = notification_service

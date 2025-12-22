@@ -3,8 +3,9 @@ from uuid import UUID
 from pydantic import BaseModel, EmailStr, SecretStr
 
 from src.application.exceptions import UserAlreadyExistsError
+from src.domain.repositories import UserAccountRepository
 from src.domain.user_account import Address, UserAccount
-from src.infra.auth_service import AuthService
+from src.infra.auth import AuthService
 
 
 class CreateUserAccountInput(BaseModel):
@@ -20,11 +21,11 @@ class CreateUserAccountOutput(BaseModel):
 
 
 class CreateUserAccountUseCase:
-    def __init__(self, auth_service: AuthService, user_repository):
+    def __init__(self, auth_service: AuthService, user_repository: UserAccountRepository):
         self._auth_service = auth_service
         self._user_repo = user_repository
 
-    def execute(self, input: CreateUserAccountInput):
+    def execute(self, input: CreateUserAccountInput) -> CreateUserAccountOutput:
         iam_user = self._auth_service.find_by_email(input.email)
         if iam_user:
             raise UserAlreadyExistsError(f"User already registered IAM")

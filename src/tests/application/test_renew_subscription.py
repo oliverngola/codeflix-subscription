@@ -10,9 +10,9 @@ from src.domain.plan import Plan
 from src.domain.subscription import Subscription
 from src.domain.user_account import UserAccount, Address
 from src.domain.value_objects import MonetaryValue
-from src.infra.payment_gateway import PaymentGateway, Payment
-from src.tests.infra.in_memory_subscription_repository import InMemorySubscriptionRepository
-from src.tests.infra.in_memory_user_account_repository import InMemoryUserAccountRepository
+from src.infra.payment import PaymentGateway, Payment
+from src.tests.fixtures.infra.repositories import InMemorySubscriptionRepository
+from src.tests.fixtures.infra.repositories import InMemoryUserAccountRepository
 from uuid import uuid4
 
 

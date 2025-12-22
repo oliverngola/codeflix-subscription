@@ -8,10 +8,12 @@ from src.application.subscribe_to_plan import SubscribeToPlanUseCase, SubscribeT
 from src.domain.plan import Plan
 from src.domain.user_account import UserAccount, Address
 from src.domain.value_objects import MonetaryValue
-from src.infra.payment_gateway import PaymentGateway, Payment
-from src.tests.infra.in_memory_plan_repository import InMemoryPlanRepository
-from src.tests.infra.in_memory_user_account_repository import InMemoryUserAccountRepository
-from src.tests.infra.in_memory_subscription_repository import InMemorySubscriptionRepository
+from src.infra.payment import PaymentGateway, Payment
+from src.tests.fixtures.infra.repositories import (
+    InMemoryPlanRepository,
+    InMemoryUserAccountRepository,
+    InMemorySubscriptionRepository
+)
 from unittest.mock import create_autospec, Mock
 from src.application.exceptions import PlanNotFoundError, SubscriptionConflictError, UserNotFoundError
 from src.domain.subscription import Subscription

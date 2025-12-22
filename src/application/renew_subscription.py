@@ -3,6 +3,10 @@ import logging
 
 from pydantic import BaseModel
 
+from src.domain.repositories import SubscriptionRepository, UserAccountRepository
+from src.infra.notification.notification_service import NotificationService
+from src.infra.payment import PaymentGateway
+
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +17,12 @@ class RenewSubscriptionInput(BaseModel):
 
 
 class RenewSubscriptionUseCase:
-    def __init__(self, subscription_repository, payment_gateway, user_account_repository, notification_service):
+    def __init__(self, 
+        subscription_repository: SubscriptionRepository,
+        payment_gateway: PaymentGateway, 
+        user_account_repository: UserAccountRepository, 
+        notification_service: NotificationService
+    ):
         self._subscription_repository = subscription_repository
         self._payment_gateway = payment_gateway
         self._user_account_repository = user_account_repository
