@@ -1,9 +1,10 @@
 from uuid import UUID
 
 from src.domain.plan import Plan
+from src.domain.repositories import PlanRepository
 
 
-class InMemoryPlanRepository:
+class InMemoryPlanRepository(PlanRepository):
     def __init__(self, plans: list[Plan] = None) -> None:
         self.plans = plans or []
 

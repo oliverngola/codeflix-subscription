@@ -1,7 +1,8 @@
+from src.domain.repositories import UserAccountRepository
 from src.domain.user_account import UserAccount
 
 
-class InMemoryUserAccountRepository:
+class InMemoryUserAccountRepository(UserAccountRepository):
     def __init__(self, user_accounts: list[UserAccount] = None) -> None:
         self.user_accounts = user_accounts or []
 

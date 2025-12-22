@@ -1,7 +1,8 @@
+from src.domain.repositories import SubscriptionRepository
 from src.domain.subscription import Subscription
 
 
-class InMemorySubscriptionRepository:
+class InMemorySubscriptionRepository(SubscriptionRepository):
     def __init__(self, subscriptions: list[Subscription] = None) -> None:
         self.subscriptions = subscriptions or []
 
