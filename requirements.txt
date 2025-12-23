@@ -1,5 +1,26 @@
-ipython==9.8.0
-pydantic==2.12.5
-pytest==9.0.2
+# Core framework dependencies
+fastapi[standard]==0.115.4
 email-validator==2.3.0
-dateutils==0.6.12
+sqlalchemy==2.0.40
+sqlmodel==0.0.24
+pydantic==2.12.5
+python-dateutil==2.9.0
+
+# Database drivers
+psycopg2-binary==2.9.10
+
+# Authentication
+python-keycloak==5.3.1
+
+# Settings management
+python-dotenv==1.1.0
+pydantic-settings==2.8.1
+
+# Testing
+pytest==9.0.2
+httpx==0.28.1
+
+# Development tools
+black==25.1.0
+ipdb==0.13.13
+ipython==9.8.0
