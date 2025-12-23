@@ -28,7 +28,7 @@ class CreateUserAccountUseCase:
     def execute(self, input: CreateUserAccountInput) -> CreateUserAccountOutput:
         iam_user = self._auth_service.find_by_email(input.email)
         if iam_user:
-            raise UserAlreadyExistsError(f"User already registered IAM")
+            raise UserAlreadyExistsError(f"User already registered in IAM")
 
         iam_user_id = self._auth_service.create_user(
             email=input.email,

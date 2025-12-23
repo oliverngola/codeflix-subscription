@@ -51,7 +51,7 @@ class SubscribeToPlanUseCase:
     def execute(self, input: SubscribeToPlanInput) -> SubscribeToPlanOutput:
         user = self.user_account_repository.find_by_id(input.user_id)
         if not user:
-            raise UserNotFoundError(input.user_id)
+            raise UserNotFoundError(f"Could not find user {input.user_id}")
 
         if not self.plan_repository.find_by_id(input.plan_id):
             raise PlanNotFoundError(input.plan_id)
