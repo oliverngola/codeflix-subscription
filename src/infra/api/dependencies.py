@@ -6,6 +6,8 @@ from sqlmodel import Session
 from src.application.create_plan import CreatePlanUseCase
 from src.application.create_user_account import CreateUserAccountUseCase
 from src.application.subscribe_to_plan import SubscribeToPlanUseCase
+from src.application.cancel_subscription import CancelSubscriptionUseCase
+from src.application.renew_subscription import RenewSubscriptionUseCase
 from src.domain.repositories import (
     PlanRepository,
     UserAccountRepository,
@@ -16,9 +18,7 @@ from src.infra.db import (
     get_session,
     SQLModelPlanRepository,
     SQLModelUserAccountRepository,
-)
-from src.infra.db.repositories.sql_model_subscription_repository import (
-    SQLModelSubscriptionRepository,
+    SQLModelSubscriptionRepository
 )
 from src.infra.notification.console_notification_service import (
     ConsoleNotificationService,
@@ -44,7 +44,9 @@ def get_subscription_repository(session: SessionDep) -> SubscriptionRepository:
     return SQLModelSubscriptionRepository(session)
 
 
-PlanRepositoryDep = Annotated[PlanRepository, Depends(get_plan_repository)]
+PlanRepositoryDep = Annotated[
+    PlanRepository, Depends(get_plan_repository)
+]
 UserAccountRepositoryDep = Annotated[
     UserAccountRepository, Depends(get_user_account_repository)
 ]
@@ -101,10 +103,40 @@ def get_subscribe_to_plan_use_case(
     )
 
 
-CreatePlanUseCaseDep = Annotated[CreatePlanUseCase, Depends(get_create_plan_use_case)]
+def get_cancel_subscription_use_case(
+    subscription_repository: SubscriptionRepositoryDep,
+) -> CancelSubscriptionUseCase:
+    return CancelSubscriptionUseCase(
+        subscription_repository,
+    )
+
+
+def get_renew_subscription_use_case(
+    subscription_repository: SubscriptionRepositoryDep,
+    payment_gateway: PaymentGatewayDep,
+    user_account_repository: UserAccountRepositoryDep,
+    notification_service: NotificationServiceDep,
+) -> RenewSubscriptionUseCase:
+    return RenewSubscriptionUseCase(
+        subscription_repository,
+        payment_gateway,
+        user_account_repository,
+        notification_service,
+    )
+
+
+CreatePlanUseCaseDep = Annotated[
+    CreatePlanUseCase, Depends(get_create_plan_use_case)
+]
 CreateUserAccountUseCaseDep = Annotated[
     CreateUserAccountUseCase, Depends(get_create_user_account_use_case)
 ]
 SubscribeToPlanUseCaseDep = Annotated[
     SubscribeToPlanUseCase, Depends(get_subscribe_to_plan_use_case)
+]
+CancelSubscriptionUseCaseDep = Annotated[
+    CancelSubscriptionUseCase, Depends(get_cancel_subscription_use_case)
+]
+RenewSubscriptionUseCaseDep = Annotated[
+    RenewSubscriptionUseCase, Depends(get_renew_subscription_use_case)
 ]
